@@ -32,7 +32,51 @@ setUpClickListener(map);
 
 
 
-//
+function buildGuardianQuery (response) {
+  let dataArray = [];
+  let searchQuery = 'https://content.guardianapis.com/search?q=';
+
+  if (response.address.city) {
+    dataArray.push(response.address.city);
+  }
+  if (response.address.county) {
+    dataArray.push(response.address.county);
+  }
+  if (response.address.state) {
+    dataArray.push(response.address.state);
+  }
+
+  dataArray.forEach(data => {
+    searchQuery += (data + '%20AND');
+  });
+
+  return searchQuery += '&api-key=' + process.env.guardianKey;
+}
+
+
+function populateQueryResults (queryJSON) {
+  let dataArray = queryJSON.response.results
+  let resultsColumn = document.querySelector('.resultsColumn');
+
+  for (let i = 0; i < dataArray.length; i++) {
+    let newResult = document.createElement('div');
+    let newResultLink = document.createElement('p')
+    let newResultDate = document.createElement('p');
+
+    newResultLink.innerHTML = '<a href=\'' + dataArray[i].webUrl + '\'>' +
+                        dataArray[i].webTitle + '</a>';
+    newResultDate.textContent = dataArray[i].webPublicationDate.slice(0,10);
+
+    newResultLink.classlist += 'storyName';
+    newResultDate.classlist += 'storyDate';
+
+    newResult.appendChild(newResultLink);
+    newResult.appendChild(newResultDate);
+    resultsColumn.appendChild(newResult);
+  }
+}
+
+
 document.querySelector('.clickerino').addEventListener('click', () => {
   if (!lat || !long) {
     alert('No latitude or longitude set yet!');
@@ -42,9 +86,10 @@ document.querySelector('.clickerino').addEventListener('click', () => {
   fetch('https://nominatim.openstreetmap.org/reverse?format=json&lat=' + lat + '&lon=' + long)
     .then(response => response.json())
     .then(response => {
-      document.querySelector('.city').textContent = response.address.city;
-      document.querySelector('.suburb').textContent = response.address.suburb;
-
-      console.log(response.address);
+      return fetch(buildGuardianQuery(response));
+    })
+    .then(response => response.json())
+    .then(response => {
+      populateQueryResults(response);
     });
 });
