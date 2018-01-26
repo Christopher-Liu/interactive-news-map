@@ -1,0 +1,17 @@
+#map{
+  width: 100%;
+  height: 70vh;
+  background: grey;
+  float: right;
+}
+
+
+
+
+@media(min-width: 768px){
+  #map{
+   width: 70%;
+    height: 85vh;
+    background: grey;
+  }
+}
