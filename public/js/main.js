@@ -3,7 +3,7 @@ let long;
 
 // Map API Initialization Code
 function setUpClickListener(map) {
-  map.addEventListener('click', (event) => {
+  map.addEventListener('tap', (event) => {
     let coord = map.screenToGeo(event.currentPointer.viewportX,
             event.currentPointer.viewportY);
 
