@@ -54,6 +54,7 @@ function buildGuardianQuery (response) {
 }
 
 
+
 function populateQueryResults (queryJSON) {
   let dataArray = queryJSON.response.results
   let resultsColumn = document.querySelector('.resultsColumn');
