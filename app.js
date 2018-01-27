@@ -1,10 +1,12 @@
 const express = require('express')
-const fetch = require("node-fetch");
+const fetch = require('node-fetch');
 
 const app = express()
 
 app.use(express.static(__dirname + '/view'));
 app.use(express.static(__dirname + '/public'));
+
+
 
 app.get('/', (req, res) => {
   res.sendFile('index.html');

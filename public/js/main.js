@@ -30,30 +30,9 @@ var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
 
 setUpClickListener(map);
 
-/*
-function buildGuardianQuery (response) {
-  let dataArray = [];
-  let searchQuery = 'https://content.guardianapis.com/search?q=';
 
-  if (response.address.city) {
-    dataArray.push(response.address.city);
-  }
-  if (response.address.county) {
-    dataArray.push(response.address.county);
-  }
-  if (response.address.state) {
-    dataArray.push(response.address.state);
-  }
 
-  dataArray.forEach(data => {
-    searchQuery += (data + '%20AND');
-  });
-
-  return searchQuery += '&api-key=' + process.env.guardianKey;
-}
-*/
-
-function buildServerRequest(response) {
+function buildServerRequestUrl(response) {
   let url = 'https://interactive-news-map.herokuapp.com/newsquery?';
 
   if (response.address.city) {
@@ -69,11 +48,18 @@ function buildServerRequest(response) {
   return url;
 }
 
+function removeChildrenNodes(node) {
+  while (node.firstChild) {
+    node.removeChild(node.firstChild);
+  }
+}
 
 
 function populateQueryResults (queryJSON) {
   let dataArray = queryJSON.response.results;
   let resultsColumn = document.querySelector('.resultsColumn');
+
+  removeChildrenNodes(resultsColumn);
 
   for (let i = 0; i < dataArray.length; i++) {
     let newResult = document.createElement('div');
@@ -84,6 +70,7 @@ function populateQueryResults (queryJSON) {
                         dataArray[i].webTitle + '</a>';
     newResultDate.textContent = dataArray[i].webPublicationDate.slice(0,10);
 
+    newResult.classList += 'story';
     newResultLink.classlist += 'storyName';
     newResultDate.classlist += 'storyDate';
 
@@ -92,6 +79,7 @@ function populateQueryResults (queryJSON) {
     resultsColumn.appendChild(newResult);
   }
 }
+
 
 
 document.querySelector('.clickerino').addEventListener('click', () => {
@@ -103,7 +91,7 @@ document.querySelector('.clickerino').addEventListener('click', () => {
   fetch('https://nominatim.openstreetmap.org/reverse?format=json&lat=' + lat + '&lon=' + long)
     .then(response => response.json())
     .then(response => {
-      return fetch(buildServerRequest(response));
+      return fetch(buildServerRequestUrl(response));
     })
     .then(response => response.json())
     .then(response => {
