@@ -30,8 +30,7 @@ var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
 
 setUpClickListener(map);
 
-
-
+/*
 function buildGuardianQuery (response) {
   let dataArray = [];
   let searchQuery = 'https://content.guardianapis.com/search?q=';
@@ -52,11 +51,28 @@ function buildGuardianQuery (response) {
 
   return searchQuery += '&api-key=' + process.env.guardianKey;
 }
+*/
+
+function buildServerRequest(response) {
+  let url = 'https://interactive-news-map.herokuapp.com/newsquery?';
+
+  if (response.address.city) {
+    url += 'city=' + response.address.city +'&';
+  }
+  if (response.address.county) {
+    url += 'county=' + response.address.county + '&';
+  }
+  if (response.address.state) {
+    url += 'state=' + response.address.state;
+  }
+
+  return url;
+}
 
 
 
 function populateQueryResults (queryJSON) {
-  let dataArray = queryJSON.response.results
+  let dataArray = queryJSON.response.results;
   let resultsColumn = document.querySelector('.resultsColumn');
 
   for (let i = 0; i < dataArray.length; i++) {
@@ -87,7 +103,7 @@ document.querySelector('.clickerino').addEventListener('click', () => {
   fetch('https://nominatim.openstreetmap.org/reverse?format=json&lat=' + lat + '&lon=' + long)
     .then(response => response.json())
     .then(response => {
-      return fetch(buildGuardianQuery(response));
+      return fetch(buildServerRequest(response));
     })
     .then(response => response.json())
     .then(response => {
