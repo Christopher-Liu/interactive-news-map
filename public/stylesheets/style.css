@@ -32,9 +32,13 @@ nav .container{
 }
 
 .navBar li{
-  display: inline;
   text-decoration: none;
+  display: inline;
   padding: 0 5px 0 5px;
+}
+
+.logo a, .navBar li a{
+  text-decoration: none;
 }
 
 
