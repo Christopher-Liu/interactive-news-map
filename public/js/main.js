@@ -2,7 +2,7 @@ let lat;
 let long;
 let marker;
 
-// Map API Initialization Code
+
 function setUpClickListener(map) {
   map.addEventListener('tap', (event) => {
     let coord = map.screenToGeo(event.currentPointer.viewportX,
@@ -10,6 +10,9 @@ function setUpClickListener(map) {
 
     lat = coord.lat.toFixed(3);
     long = coord.lng.toFixed(3);
+
+    document.querySelector('.infoLat').textContent = lat;
+    document.querySelector('.infoLong').textContent = long;
 
     if (!marker) {
       marker = new H.map.Marker({lat: lat, lng: long});
@@ -19,6 +22,7 @@ function setUpClickListener(map) {
     }
   });
 }
+
 
 var platform = new H.service.Platform({
   app_id: 'DemoAppId01082013GAL',
@@ -90,7 +94,7 @@ function populateQueryResults (queryJSON) {
 
 
 
-document.querySelector('.clickerino').addEventListener('click', () => {
+document.querySelector('.queryButton').addEventListener('click', () => {
   if (!lat || !long) {
     alert('No latitude or longitude set yet!');
     return;

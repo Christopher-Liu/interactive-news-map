@@ -23,7 +23,8 @@ nav .container{
   justify-content: space-between;
   flex-flow: wrap;
   align-items: center;
-  padding: 0;
+  padding: 0 0;
+  height: 6vh;
 }
 
 .logo{
@@ -37,13 +38,22 @@ nav .container{
 }
 
 
+.informationBox{
+  display: flex;
+  justify-content: space-between;
+}
+
+.informationBox p{
+  text-align: left;
+  flex: 1;
+}
 
 .story{
   margin-top: 0;
   margin-bottom: 10px;
 }
 
-.story > p {
+.story p {
   margin: 0;
   padding: 0;
 }
@@ -60,10 +70,25 @@ nav .container{
 
 #map{
   width: 100%;
-  height: 70vh;
+  height: 60vh;
   background: grey;
 }
 
+.queryButton {
+  font-size: 16px;
+  padding: 8px 12px;
+  margin: 0 0;
+  color: #f2f2f2;
+  background: #74afd6;
+  -webkit-border-radius: 6;
+  -moz-border-radius: 6;
+  border-radius: 6px;
+  align-self: right;
+}
+
+.queryButton:hover {
+  background: #3cb0fd;
+}
 
 
 
@@ -74,16 +99,23 @@ nav .container{
 
   .main .container{
     display: flex;
+    justify-content: space-between;
+  }
+
+  .mainSectionLeft{
+    width: 35%;
+    order: 1;
+  }
+
+  #map{
+    width: 65%;
+    height: 85vh;
+
+    order: 2;
   }
 
   .story{
     margin-top: 0;
     margin-bottom: 26px;
-  }
-
-  #map{
-   width: 70%;
-   height: 95vh;
-   background: grey;
   }
 }

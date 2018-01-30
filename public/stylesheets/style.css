@@ -1,17 +1,121 @@
+body{
+  background: rgba(51, 51, 51, 0.05);
+  padding: 0;
+  margin: 0;
+}
+
+.container{
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 1%;
+  background: white;
+}
+
+
+nav{
+  width: 100%;
+  background-color: rgb(231, 237, 239);
+}
+
+nav .container{
+  background: rgb(231, 237, 239);
+  display: flex;
+  justify-content: space-between;
+  flex-flow: wrap;
+  align-items: center;
+  padding: 0 0;
+  height: 6vh;
+}
+
+.logo{
+  font-size: 1.25em;
+}
+
+.navBar li{
+  display: inline;
+  text-decoration: none;
+  padding: 0 5px 0 5px;
+}
+
+
+.informationBox{
+  display: flex;
+  justify-content: space-between;
+}
+
+.informationBox p{
+  text-align: left;
+  flex: 1;
+}
+
+.story{
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.story p {
+  margin: 0;
+  padding: 0;
+}
+
+.storyName{
+  font-size: 18px;
+}
+
+.storyDate{
+  color: #555555;
+  font-size: 13px;
+}
+
+
 #map{
   width: 100%;
-  height: 70vh;
+  height: 60vh;
   background: grey;
-  float: right;
+}
+
+.queryButton {
+  font-size: 16px;
+  padding: 8px 12px;
+  margin: 0 0;
+  color: #f2f2f2;
+  background: #74afd6;
+  -webkit-border-radius: 6;
+  -moz-border-radius: 6;
+  border-radius: 6px;
+  align-self: right;
+}
+
+.queryButton:hover {
+  background: #3cb0fd;
 }
 
 
 
-
 @media(min-width: 768px){
+  .logo{
+    font-size: 1.5em;
+  }
+
+  .main .container{
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .mainSectionLeft{
+    width: 35%;
+    order: 1;
+  }
+
   #map{
-   width: 70%;
+    width: 65%;
     height: 85vh;
-    background: grey;
+
+    order: 2;
+  }
+
+  .story{
+    margin-top: 0;
+    margin-bottom: 26px;
   }
 }
