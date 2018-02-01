@@ -73,6 +73,14 @@ function populateQueryResults (queryJSON) {
 
   removeChildrenNodes(resultsColumn);
 
+  if (dataArray.length === 0) {
+    let noResultMessage = document.createElement('p');
+    noResultMessage.textContent = 'No results, please try a different location!';
+    resultsColumn.appendChild(noResultMessage);
+
+    return ;
+  }
+
   for (let i = 0; i < dataArray.length; i++) {
     let newResult = document.createElement('div');
     let newResultLink = document.createElement('p')
