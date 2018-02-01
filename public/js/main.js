@@ -47,13 +47,13 @@ setUpClickListener(map);
 function buildServerRequestUrl(response) {
   let url = 'https://interactive-news-map.herokuapp.com/newsquery?';
 
-  if (response.address.city) {
+  if (response.address.hasOwnProperty('city')) {
     url += 'city=' + response.address.city +'&';
   }
-  if (response.address.county) {
+  if (response.address.hasOwnProperty('county')) {
     url += 'county=' + response.address.county + '&';
   }
-  if (response.address.state) {
+  if (response.address.hasOwnProperty('state')) {
     url += 'state=' + response.address.state;
   }
 
@@ -111,6 +111,11 @@ document.querySelector('.queryButton').addEventListener('click', () => {
   fetch('https://nominatim.openstreetmap.org/reverse?format=json&lat=' + lat + '&lon=' + long)
     .then(response => response.json())
     .then(response => {
+      if (response.hasOwnProperty('error')) {
+        alert('No city was near your marker- please try again!');
+        return ;
+      }
+
       return fetch(buildServerRequestUrl(response));
     })
     .then(response => response.json())
